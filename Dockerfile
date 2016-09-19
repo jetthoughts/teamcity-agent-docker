@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 
 ENV AGENT_DIR  /opt/buildAgent
 
@@ -50,7 +50,7 @@ RUN set -x \
   && docker -v
 
 RUN groupadd docker && adduser --disabled-password --gecos "" teamcity \
-	&& sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers \
+	&& touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers \
 	&& usermod -a -G docker,sudo teamcity
 
 # Install TeamCity Agent
