@@ -13,16 +13,16 @@ ENV LC_CTYPE en_US.UTF-8
 RUN locale-gen en_US && update-locale LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
 
 # grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.7
-RUN set -x \
-    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-    && export GNUPGHOME="$(mktemp -d)" \
-    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-    && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-    && chmod +x /usr/local/bin/gosu \
-    && gosu nobody true
+#ENV GOSU_VERSION 1.7
+#RUN set -x \
+#    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+#    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+#    && export GNUPGHOME="$(mktemp -d)" \
+#    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+#    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+#    && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+#    && chmod +x /usr/local/bin/gosu \
+#    && gosu nobody true
 
 # Install java-8-oracle
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections \
@@ -49,16 +49,16 @@ RUN set -x \
   && rm docker.tgz \
   && docker -v
 
-RUN groupadd docker && adduser --disabled-password --gecos "" teamcity \
-	&& touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers \
-	&& usermod -a -G docker,sudo teamcity
+#RUN groupadd docker && adduser --disabled-password --gecos "" teamcity \
+#	&& touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers \
+#	&& usermod -a -G docker,sudo teamcity
 
 # Install TeamCity Agent
-ADD docker-entrypoint.sh /docker-entrypoint.sh
+#ADD docker-entrypoint.sh /docker-entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+#ENTRYPOINT ["/docker-entrypoint.sh"]
 
-VOLUME /var/lib/docker
+#VOLUME /var/lib/docker
 VOLUME /opt/buildAgent
 
 
