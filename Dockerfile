@@ -52,11 +52,12 @@ RUN set -x \
 #RUN groupadd docker && adduser --disabled-password --gecos "" teamcity \
 #	&& touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers \
 #	&& usermod -a -G docker,sudo teamcity
+RUN touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers
 
 # Install TeamCity Agent
-#ADD docker-entrypoint.sh /docker-entrypoint.sh
+ADD docker-entrypoint.sh /docker-entrypoint.sh
 
-#ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 #VOLUME /var/lib/docker
 VOLUME /opt/buildAgent
