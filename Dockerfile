@@ -63,4 +63,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 VOLUME /opt/buildAgent
 
 
-EXPOSE 9090
+#EXPOSE 9090
