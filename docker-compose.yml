@@ -23,7 +23,7 @@ services:
       - mysql
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/usr/local/bin/docker:/bin/docker'
+        #- '/usr/local/bin/docker:/usr/local/bin/docker'
       - '/mnt/storage/tmp/cache:/tmp/cache'
       - '/mnt/storage/tmp/opt/buildAgent:/opt/buildAgent'
 networks:
