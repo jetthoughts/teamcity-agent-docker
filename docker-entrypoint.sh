@@ -1,4 +1,12 @@
 #!/bin/bash
+
+
+export AGENT_DIR="/opt/buildAgent/$HOSTNAME"
+export DATABASE_URL="mysql2://root@mysql/$HOSTNAME"
+
+env
+
+
 if [ -z "$TEAMCITY_SERVER" ]; then
     echo "TEAMCITY_SERVER variable not set, launch with -e TEAMCITY_SERVER=http://mybuildserver"
     exit 1
