@@ -16,8 +16,8 @@ services:
     environment:
       - 'TEAMCITY_SERVER=http://ci.jetthoughts.com'
 
-    build: .
-  #  image: 'jetthoughts/teamcity-agent-docker:latest'
+        #build: .
+    image: 'jetthoughts/teamcity-agent-docker:latest'
 
     links:
       - mysql
