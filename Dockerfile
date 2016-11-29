@@ -52,7 +52,7 @@ RUN set -x \
 RUN touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers
 
 # Install TeamCity Agent
-ADD docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
