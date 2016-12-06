@@ -8,19 +8,19 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     tmpfs: /var/lib/mysql
-#    networks:
-#      - sibling
 
-  test:
+  agent:
     build: .
     dns:
       - 8.8.8.8
-#    networks:
-#      - sibling
+    links:
+      - mysql
+
+    environment:
+      - TEAMCITY_SERVER=http://ci.jetthoughts.com
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
+      - datavolume:/opt/buildAgent/
 
-#networks:
-#  sibling:
-#    driver: overlay
-#    external: true
+volumes:
+  datavolume: {}

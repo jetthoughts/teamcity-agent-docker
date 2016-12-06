@@ -1,7 +1,20 @@
 #!/bin/bash
 
+#export HOSTNAME="freeze"
+
 export AGENT_DIR="/opt/buildAgent/$HOSTNAME"
 export DATABASE_URL="mysql2://root@mysql/$HOSTNAME"
+
+#export AGENT_WORK_DIR=$AGENT_DIR/work
+
+# Setup Cache Directories
+export AGENT_CACHE_DIR=$AGENT_DIR/cache
+mkdir -p $AGENT_CACHE_DIR/
+mkdir $AGENT_CACHE_DIR/public_assets/
+mkdir $AGENT_CACHE_DIR/cache_assets/
+mkdir $AGENT_CACHE_DIR/gems/
+mkdir $AGENT_CACHE_DIR/reports_parallel_tests/
+
 
 if [ -z "$TEAMCITY_SERVER" ]; then
     echo "TEAMCITY_SERVER variable not set, launch with -e TEAMCITY_SERVER=http://mybuildserver"
@@ -20,6 +33,7 @@ if [ ! -d "$AGENT_DIR/bin" ]; then
         fi
     done
     wget $TEAMCITY_SERVER/update/buildAgent.zip && unzip -d $AGENT_DIR buildAgent.zip && rm buildAgent.zip
+    echo "Downloaded agent to $AGENT_DIR"
     chmod +x $AGENT_DIR/bin/agent.sh
     echo "serverUrl=${TEAMCITY_SERVER}" > $AGENT_DIR/conf/buildAgent.properties
 fi

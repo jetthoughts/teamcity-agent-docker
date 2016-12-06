@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		lxc iptables aufs-tools ca-certificates curl wget software-properties-common language-pack-en unzip \
+		lxc iptables aufs-tools ca-certificates curl wget software-properties-common language-pack-en unzip git-core \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Fix locale.
@@ -23,16 +23,16 @@ RUN locale-gen en_US && update-locale LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
 #    && gosu nobody true
 
 # Install java-8-oracle
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections \
-	&& echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections \
-	&& add-apt-repository -y ppa:webupd8team/java \
-	&& apt-get update \
-  	&& apt-get install -y --no-install-recommends \
-      oracle-java8-installer ca-certificates-java \
-  	&& rm -rf /var/lib/apt/lists/* /var/cache/oracle-jdk8-installer/*.tar.gz /usr/lib/jvm/java-8-oracle/src.zip /usr/lib/jvm/java-8-oracle/javafx-src.zip \
-      /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts \
-  	&& ln -s /etc/ssl/certs/java/cacerts /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts \
-  	&& update-ca-certificates
+#RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections \
+#	&& echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections \
+#	&& add-apt-repository -y ppa:webupd8team/java \
+#	&& apt-get update \
+#  	&& apt-get install -y --no-install-recommends \
+#      oracle-java8-installer ca-certificates-java \
+#  	&& rm -rf /var/lib/apt/lists/* /var/cache/oracle-jdk8-installer/*.tar.gz /usr/lib/jvm/java-8-oracle/src.zip /usr/lib/jvm/java-8-oracle/javafx-src.zip \
+#      /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts \
+#  	&& ln -s /etc/ssl/certs/java/cacerts /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts \
+#  	&& update-ca-certificates
 
 # Install docker
 ENV DOCKER_BUCKET get.docker.com
@@ -53,6 +53,10 @@ RUN touch /etc/sudoers && sed -i -e "s/%sudo.*$/%sudo ALL=(ALL:ALL) NOPASSWD:ALL
 
 # Install TeamCity Agent
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY checkout_project.sh /checkout_project.sh
+COPY rspec_build_step.sh /rspec_build_step.sh
+
+COPY openapply/ /project
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

@@ -13,7 +13,7 @@ echo "added ping message:"
 ls /shared
 
 docker run \
-  -v datavolume:/shared \
+  -v sharedfolderasnamedfolder_datavolume:/shared \
   alpine \
   /bin/sh -c "echo \"run sibling check\"; ls /shared; echo \"done from next stage\" > /shared/sibling.pong"
 
