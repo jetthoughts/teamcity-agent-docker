@@ -1,5 +1,8 @@
 #!/bin/sh
 
-docker run -e TEAMCITY_SERVER=http://ci.jetthoughts.com \
-           -v /var/run/docker.sock:/var/run/docker.sock \
-          jetthoughts/teamcity-agent-docker
+#docker run -e TEAMCITY_SERVER=http://ci.jetthoughts.com \
+#           -v /var/run/docker.sock:/var/run/docker.sock \
+#          jetthoughts/teamcity-agent-docker
+
+
+docker-compose up -d --no-recreate --build --remove-orphans
