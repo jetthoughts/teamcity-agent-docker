@@ -13,17 +13,19 @@ ln -s $CACHE_DIR/cache_assets/ $AGENT_WORK_DIR/tmp/cache/assets
 
 # Setup bundler to use local cache
 docker run \
+    --rm \
     -v runagenttask_datavolume:/opt/buildAgent \
     -w "$AGENT_WORK_DIR" \
-    jetthoughts/oa-rspec:latest bundle config --global path "$CACHE_DIR/gems"
+    jetthoughts/oa-rspec:latest bundle config --local path "$CACHE_DIR/gems"
 #
 #docker run \
 #    -v runagenttask_datavolume:/opt/buildAgent \
 #    -v runagenttask_datavolume:/opt/buildAgent \
 #    -w "$AGENT_WORK_DIR" \
-#    jetthoughts/oa-rspec:latest bundle config --local path "$CACHE_DIR/gems"
+#    jetthoughts/oa-rspec:latest bundle config --global path "$CACHE_DIR/gems"
 
 docker run \
+  --rm \
   --net runagenttask_default \
   -v runagenttask_datavolume:/opt/buildAgent \
   -w "$AGENT_WORK_DIR" \
