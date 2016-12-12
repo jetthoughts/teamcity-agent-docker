@@ -10,10 +10,11 @@ export DATABASE_URL="mysql2://root@mysql/$HOSTNAME"
 # Setup Cache Directories
 export AGENT_CACHE_DIR=$AGENT_DIR/cache
 mkdir -p $AGENT_CACHE_DIR/
-mkdir $AGENT_CACHE_DIR/public_assets/
-mkdir $AGENT_CACHE_DIR/cache_assets/
-mkdir $AGENT_CACHE_DIR/gems/
-mkdir $AGENT_CACHE_DIR/reports_parallel_tests/
+
+mkdir -p $AGENT_CACHE_DIR/public_assets/
+mkdir -p $AGENT_CACHE_DIR/cache_assets/
+mkdir -p $AGENT_CACHE_DIR/gems/
+mkdir -p $AGENT_CACHE_DIR/reports_parallel_tests/
 
 
 if [ -z "$TEAMCITY_SERVER" ]; then
