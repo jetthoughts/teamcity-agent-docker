@@ -7,8 +7,6 @@ services:
       - 8.8.8.8
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
-    volumes:
-      - mysqlvolume:/var/lib/mysql
 
   agent:
     build: .
@@ -25,4 +23,3 @@ services:
 
 volumes:
   datavolume: {}
-  mysqlvolume: {}
