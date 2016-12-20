@@ -1,8 +1,8 @@
 FROM ubuntu:14.04
 
-RUN apt-get update \
+RUN apt-get update && apt-get dist-upgrade -y \
 	&& apt-get install -y --no-install-recommends \
-		lxc iptables aufs-tools ca-certificates curl wget software-properties-common language-pack-en unzip \
+		lxc iptables aufs-tools ca-certificates curl wget software-properties-common language-pack-en unzip git-core \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Fix locale.
