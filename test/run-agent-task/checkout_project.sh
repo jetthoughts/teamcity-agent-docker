@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+/usr/bin/git fetch --progress origin
+
 mkdir -p $AGENT_WORK_DIR
 cd $AGENT_WORK_DIR
 
