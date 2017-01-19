@@ -3,6 +3,7 @@ version: '2.1'
 services:
   mysql:
     mem_limit: 1g
+    memswap_limit: 10m
     image: 'mysql:5.7'
     dns:
       - 8.8.8.8
