@@ -2,8 +2,6 @@ version: '2.1'
 
 services:
   mysql:
-    mem_limit: 1g
-    memswap_limit: 10m
     image: 'mysql:5.7'
     dns:
       - 8.8.8.8
@@ -11,6 +9,9 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     tmpfs:
       - /var/lib/mysql
+    mem_limit: 1g
+    memswap_limit: 10m
+    restart: always
 
   agent:
     build: .
@@ -18,12 +19,12 @@ services:
       - 8.8.8.8
     links:
       - mysql
-
     environment:
       - TEAMCITY_SERVER=http://ci.jetthoughts.com
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - datavolume:/opt/buildAgent/
+    restart: always
 
 volumes:
   datavolume: {}
