@@ -36,7 +36,7 @@ RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-s
 
 # Install docker
 ENV DOCKER_BUCKET get.docker.com
-ENV DOCKER_VERSION 1.12.3
+ENV DOCKER_VERSION 1.13.0
 
 RUN set -x \
   && curl -fSL "https://${DOCKER_BUCKET}/builds/Linux/x86_64/docker-$DOCKER_VERSION.tgz" -o docker.tgz \
