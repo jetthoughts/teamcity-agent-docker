@@ -22,6 +22,7 @@ services:
       - TEAMCITY_SERVER=http://ci.jetthoughts.com
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
+      - /tmp:/tmp
       - datavolume:/opt/buildAgent/
     restart: always
 
