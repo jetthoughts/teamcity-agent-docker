@@ -4,5 +4,6 @@
 #           -v /var/run/docker.sock:/var/run/docker.sock \
 #          jetthoughts/teamcity-agent-docker
 
+export COMPOSE_PROJECT_NAME="teamcity-agent-docker"
 
 docker-compose up -d --build --remove-orphans
