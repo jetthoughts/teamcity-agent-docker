@@ -6,4 +6,5 @@
 
 export COMPOSE_PROJECT_NAME="teamcity-agent-docker"
 
+docker-compose pull
 docker-compose up -d --build --remove-orphans
