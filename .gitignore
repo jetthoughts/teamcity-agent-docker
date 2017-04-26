@@ -2,3 +2,4 @@
 /test/tmp
 /test/run-agent-task/
 /tmp
+.vagrant/
