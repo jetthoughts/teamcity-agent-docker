@@ -1,0 +1,13 @@
+---
+become: true
+become_user: root
+
+## Default repository variables
+distribution: ubuntu
+release: xenial
+
+## Docker
+user_name: jt
+
+# For released versions `main`, for unreleased versions `testing`
+docker_repo_name: 'main'

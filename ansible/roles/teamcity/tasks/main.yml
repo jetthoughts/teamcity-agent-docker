@@ -1,0 +1,28 @@
+- name: pull teamcity repo
+  # FIXME: We have this duplication with ansible/roles/teamcity/defaults/main.yml but for now it's not working
+  # without it
+  become: yes
+  become_user: jt
+  git:
+    repo: https://github.com/jetthoughts/teamcity-agent-docker.git
+    dest: ~/opt/teamcity-agent-docker
+  tags:
+    - start
+
+- name: start teamcity agent
+  shell: bin/start-teamcity-agent
+  become: yes
+  become_user: jt
+  args:
+    chdir: ~/opt/teamcity-agent-docker
+  tags:
+    - start
+
+- name: autoscale teamcity agents
+  shell: docker-compose scale agent=$((`cat /proc/cpuinfo | grep processor | wc -l`-1))
+  become: yes
+  become_user: jt
+  args:
+    chdir: ~/opt/teamcity-agent-docker
+  tags:
+    - autoscale

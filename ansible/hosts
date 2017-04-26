@@ -1,0 +1,15 @@
+[team-city-servers]
+
+jt1.local
+jt2.local
+jt3.local
+jt4.local
+jt5.local
+jt6.local
+bulochka.local
+work-lin.local
+
+[team-city-servers:vars]
+ansible_user=jt
+ansible_sudo_pass=' '
+ansible_python_interpreter=/usr/bin/python3.5

@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  # For call apt-get with sudo
+  become: true
+  become_user: root
+
+  roles:
+    - docker
+    - docker-compose
+    - avahi
+    - teamcity

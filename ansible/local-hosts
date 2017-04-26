@@ -1,0 +1,8 @@
+[local]
+127.0.0.1
+
+[local:vars]
+ansible_ssh_port=3022
+ansible_user=user
+ansible_sudo_pass='12345678'
+ansible_python_interpreter=/usr/bin/python3.5

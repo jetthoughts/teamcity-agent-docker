@@ -1,0 +1,54 @@
+---
+
+- name: query linux kernel release
+  shell: uname -r | xargs
+  register: kernel_release
+
+- name: ensure that APT works with the https method
+  apt: name={{ item }} state=present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+
+- name: install docker GPG key
+  apt_key:
+    keyserver: hkp://p80.pool.sks-keyservers.net:80
+    id: 58118E89F3A912897C070ADBF76221572C52609D
+
+- name: add docker apt repository
+  apt_repository:
+    repo: deb https://apt.dockerproject.org/repo {{ distribution }}-{{ release }} {{ docker_repo_name }}
+    update_cache: yes
+
+- name: install linux-image-extra
+  apt: name=linux-image-extra-{{ kernel_release.stdout }} state=present
+
+- name: install linux-image-extra-virtual
+  apt: name=linux-image-extra-virtual state=present
+
+- name: update apt-cache
+  apt: update_cache=yes
+  tags:
+    - docker
+    - apt_cache
+
+- name: install docker
+  apt:
+    name: docker-engine
+
+- name: add user to docker group
+  user:
+    name: '{{ user_name }}'
+    groups: docker
+    append: yes
+
+- name: add docker deamon settings
+  copy:
+    content: '{ "dns": ["8.8.8.8", "8.8.4.4"],"graph": "/mnt/storage/var/lib/docker","storage-driver": "overlay2","log-driver": "none"}'
+    dest: /etc/docker/daemon.json
+
+- name: enable docker service on system startup
+  systemd:
+    service: docker.service
+    enabled: yes
+    state: started

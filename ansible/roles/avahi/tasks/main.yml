@@ -1,0 +1,20 @@
+---
+
+- name: install avahi-daemon package
+  apt: pkg=avahi-daemon state=present
+
+- name: install avahi-utils package
+  apt: pkg=avahi-utils state=present
+
+- name: install avahi-autoipd package
+  apt: pkg=avahi-autoipd state=present
+
+- name: avahi | update avahi config
+  template:
+    src: avahi-daemon.conf.j2
+    dest: '/etc/avahi/avahi-daemon.conf'
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart avahi-daemon
